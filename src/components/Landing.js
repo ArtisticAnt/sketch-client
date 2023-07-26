@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Footer from "./Footer";
 
 const Landing = () => {
@@ -14,15 +14,7 @@ const Landing = () => {
               
             </p>
 
-            <div className="buttons">
-              <Link to="/register" className="btn btn-primary">
-                Sign Up
-              </Link>
-
-              <Link to="/login" className="btn">
-                Login
-              </Link>
-            </div>
+            
           </div>
         </div>
       </section>
