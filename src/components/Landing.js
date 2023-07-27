@@ -19,6 +19,7 @@ const Landing = () => {
         </div>
       </section>
       <Footer />
+      <div id="image-container"></div>
     </div>
   );
 };

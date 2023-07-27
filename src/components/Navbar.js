@@ -1,9 +1,9 @@
-import { TextField, Box } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+// import { TextField, Box } from "@mui/material";
+// import SearchIcon from "@mui/icons-material/Search";
+// import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/sketch_logo.png";
+// import logo from "../assets/img/sketch_logo.png";
 
 // import { setWord } from "../actions/book";
 // import { connect } from "react-redux";
@@ -29,38 +29,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar bg-dark">
-      <Link to="/">
-        {/* <img src={logo} alt="adsf" height={"45px"} width={"auto"} /> */}
-        <h1>Home</h1>
-      </Link>
-
-      <ul>
-        <li>
-          <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.4 }} />
-            <TextField
-              id="auth-search"
-              label="Search Auth"
-              variant="standard"
-              size="small"
-              type="search"
-            />
-          </Box>
-        </li>
-
-        <li>
-          <Box sx={{ display: "flex", alignItems: "flex-end", ml: 3 }}>
-            <SearchIcon sx={{ color: "action.active", mr: 1, my: 0.4 }} />
-            <TextField
-              id="title-search"
-              label="Search Title"
-              variant="standard"
-              size="small"
-              type="search"
-            />
-          </Box>
-        </li>
-      </ul>
+      
     </nav>
   );
 };

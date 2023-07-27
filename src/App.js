@@ -10,7 +10,7 @@ import Search from "./components/Search";
 import { Provider } from "react-redux";
 import { store } from "./store";
 
-import "./App.css";
+import "./App.scss";
 
 const App = () => {
   console.log(process.env.REACT_APP_API_URL);

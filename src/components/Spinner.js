@@ -1,12 +1,10 @@
-import spinner from './spinner.gif';
+import './Loading/Loading.css';
 
 const Spinner = () => (
   <>
-    <img
-      src={spinner}
-      style={{ width: '200px', margin: 'auto', display: 'block' }}
-      alt='Loading...'
-    />
+    <div className="ring">Loading
+      <span className="spans"></span>
+    </div>
   </>
 );
 

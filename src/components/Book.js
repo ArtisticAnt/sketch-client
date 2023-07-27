@@ -1,11 +1,14 @@
-import { Container, Grid, Button } from "@mui/material";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { getContent } from "../actions/book";
 import { Link, useParams } from "react-router-dom";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import Spinner from './Spinner';
 
-const Footer = ({ bookContent, getContent }) => {
+const Footer = ({ bookContent, getContent, loading }) => {
   const bookId = useParams().id;
   const search = useParams().search;
   const item = useParams().item;
@@ -13,41 +16,46 @@ const Footer = ({ bookContent, getContent }) => {
   // console.log(linkTo);
   useEffect(() => {
     getContent(bookId);
+    window.scrollTo(0, 0);
   }, [getContent, bookId]);
 
   return (
-    <div className="m-5">
-      <Container>
-        <Grid container columnSpacing={0} rowSpacing={3}>
-          {bookContent.length ? (
-            <>
-              {bookContent.map((content, index) => {
-                return (
-                  <Grid item xs={6} key={index}>
-                    <img src={content} alt="" />
-                  </Grid>
-                );
-              })}
-            </>
-          ) : (
-            <h1>There is no Content</h1>
-          )}
-        </Grid>
-        <div className="go-back">
-          <Link to={linkTo}>
-            <Button variant="contained">Go Back</Button>
-          </Link>
-        </div>
-      </Container>
+    <div>
+      <ImageList rowHeight={1400} className="imageList" cols={2}>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            {bookContent.length ? (
+              <>
+                {bookContent.map((content, index) => (
+                  <ImageListItem key={index} cols={index.cols || 1}>
+                    <img src={content} alt="" className="image" />
+                  </ImageListItem>
+                ))}
+              </>
+            ) : (
+              <h1>There is no Content</h1>
+            )}
+          </>
+        )}
+      </ImageList>
+      <div className="go-back">
+        <Link to={linkTo}>
+          <ArrowBackIosRoundedIcon style={{ color: 'gray', fontSize: 45 }} />
+        </Link>
+      </div>
     </div>
   );
 };
 
 Footer.propTypes = {
   bookContent: PropTypes.array,
+  loading: PropTypes.bool,
 };
 const mapStateToProps = (state) => ({
   bookContent: state.book.bookContent,
+  loading: state.book.loading,
 });
 
 export default connect(mapStateToProps, { getContent })(Footer);

@@ -1,22 +1,20 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
+import { Grid, ButtonBase } from '@mui/material';
 
-export default function MediaCard({title, imgURL}) {
+export default function MediaCard({ title, imgURL, countryCode, city, stateName }) {
   return (
-    <Card sx={{ maxWidth: 400 }}>
-      <CardMedia
-        sx={{ height: 600 }}
-        image={imgURL}
-        title={title}
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          <div className="title">Title: {title}</div>
-        </Typography>
-      </CardContent>
-    </Card>
+      <Grid container direction="column" alignItems="center" className='bookBox hvr-grow-shadow'>
+        <Grid item >
+          <ButtonBase className='coverBox'>
+            <img src={imgURL} alt='' />
+          </ButtonBase>
+        </Grid>
+        <Grid item>
+            {title}
+        </Grid>
+        <Grid item>
+            {countryCode}, {city}, {stateName}
+        </Grid>
+      </Grid>
   );
 }

@@ -34,6 +34,10 @@ export const moreBook = (pageNumber) => async (dispatch) => {
 };
 
 export const getContent = (bookId) => async (dispatch) => {
+  dispatch({
+    type: BOOK_LOADING,
+    payload: [],
+  });
   try {
     const res = await api.get(`/submissions/book?lid=${bookId}`);
     dispatch({
