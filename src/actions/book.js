@@ -66,3 +66,16 @@ export const authGet = (word, item) => async (dispatch) => {
     dispatch({ type: BOOK_ERROR });
   }
 };
+
+export const searchBook = (artistName) => async (dispatch) => {
+  try {
+    const res = await api.get(`/submissions/search?word=${artistName}`);
+    dispatch({
+      type: AUTH_SEARCH,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: BOOK_ERROR });
+  }
+};

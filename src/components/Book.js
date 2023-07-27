@@ -42,7 +42,7 @@ const Footer = ({ bookContent, getContent, loading }) => {
       </ImageList>
       <div className="go-back">
         <Link to={linkTo}>
-          <ArrowBackIosRoundedIcon style={{ color: 'gray', fontSize: 45 }} />
+          <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
         </Link>
       </div>
     </div>

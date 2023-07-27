@@ -17,7 +17,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        {/* <Navbar /> */}
+        <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/book/:id" element={<Book />} />
