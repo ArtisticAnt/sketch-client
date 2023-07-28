@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 import "./App.scss";
+// import "../styles/scss/image-gallery.scss"
 
 const App = () => {
   console.log(process.env.REACT_APP_API_URL);
@@ -20,9 +21,9 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/book/:id" element={<Book />} />
-          <Route path="/book/:id/:search/:item" element={<Book />} />
-          <Route path="/search/:word/:item" element={<Search />} />
+          <Route path="/book/:id/" element={<Book />} />
+          <Route path="/book/:id/:search" element={<Book />} />
+          <Route path="/search/:word" element={<Search />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

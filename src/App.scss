@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Raleway&display=swap');
+@import '~react-image-gallery/styles/css/image-gallery.css';
+
 
 .m-1 {
   margin: 1rem;
@@ -709,6 +711,15 @@ img {
   opacity: 0.4;
 }
 
+.go-back1 {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  margin-top: 4.5rem;
+  margin-left: -4rem;
+  opacity: 0.4;
+}
+
 .no-search {
   margin-top: 35vh;
 }
@@ -816,4 +827,28 @@ img {
 
 .cardPosition {
   justify-content: center;
+}
+
+.custom-gallery-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.custom-gallery-item {
+  margin-bottom: 20px;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: auto;
+}
+
+.thumbnail {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.thumbnail img {
+  width: 50px;
+  height: auto;
 }

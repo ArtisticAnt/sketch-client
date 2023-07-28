@@ -2,7 +2,7 @@
 // import SearchIcon from "@mui/icons-material/Search";
 // import { Link } from "react-router-dom";
 // import { useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,15 +12,9 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
-// import { useState, useEffect } from 'react';
-import { searchBook } from '../actions/book';
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useState } from 'react';
+// import { useParams } from "react-router-dom";
 // import logo from "../assets/img/sketch_logo.png";
-
-// import { setWord } from "../actions/book";
-// import { connect } from "react-redux";
-// import PropTypes from "prop-types";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -65,34 +59,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  // const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
   // const [searchResults, setSearchResults] = useState([]);
 
-  // const handleSearchSubmit = (query) => {
-  //   searchBook(query);
-  // }
+  const handleSearchInputchange = (event) => {
+    setSearchQuery(event.target.value);
+  }
 
-  // const handleSearchInputKeyDown = (event) => {
-  //   if (event.key === 'Enter') {
-  //     handleSearchSubmit(searchQuery);
-  //   }
-  // }
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   const authSearchDOM = document.getElementById("auth-search");
-  //   const titleSearchDOM = document.getElementById("title-search");
-  //   authSearchDOM.addEventListener("keypress", function (event) {
-  //     if (event.key === "Enter") {
-  //       navigate(`/search/${event.target.value}/auth`);
-  //     }
-  //   });
-  //   titleSearchDOM.addEventListener("keypress", function (event) {
-  //     if (event.key === "Enter") {
-  //       navigate(`/search/${event.target.value}/title`);
-  //     }
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  const handleSearchInputKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      navigate(`/search/${event.target.value}`);
+    }
+  }
 
   return (
     <div className='navbar'>
@@ -123,8 +102,9 @@ const Navbar = () => {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
-                // value={searchQuery}
-                // onKeyDown={handleSearchInputKeyDown}
+                value={searchQuery}
+                onChange={handleSearchInputchange}
+                onKeyDown={handleSearchInputKeyDown}
               />
             </Search>
           </Toolbar>
@@ -134,11 +114,4 @@ const Navbar = () => {
   );
 };
 
-Navbar.prototype = {
-  searchBook: PropTypes.func,
-};
-const mapStateToProps = (state) => ({
-
-});
-
-export default connect(mapStateToProps, { searchBook })(Navbar);
+export default Navbar;

@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
-import { Grid, Container, Button } from "@mui/material";
+import { Grid, Container} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import MediaCard from "./MediaCard";
@@ -12,31 +13,30 @@ import { authGet } from "../actions/book";
 
 const Search = ({ authSearch, loading, authGet }) => {
   const word = useParams().word;
-  const item = useParams().item;
   useEffect(() => {
-    authGet(word, item);
-  }, [authGet, word, item]);
-  // console.log(authSearch.length, loading);
+    authGet(word);
+  }, [authGet, word]);
   return (
-    <div className="mt-6">
+    <div className="mt-4">
       <Container>
-        <h1 className="artist-name">Result is {authSearch.length}</h1>
-        <Grid container spacing={6}>
+        <Grid container spacing={6} className="cardPosition">
           {loading ? (
             <Spinner />
           ) : authSearch.length ? (
             authSearch.map((book, index) => {
               return (
-                <Grid item xs={4} key={index}>
-                  <h2 className="artist-name">{word}</h2>
-                  <Link to={`/book/${book.lid}/${word}/${item}`}>
+                <Grid item xs={3} key={index}>
+                  <Link to={`/book/${book.lid}/${word}`}>
                     <MediaCard
-                      title={book.title ? book.title : "Default"}
+                      title={book.artistName}
                       imgURL={
                         book.frontPage
                           ? book.frontPage
                           : "http://s3.amazonaws.com/data.arthousecoop.com/attachments/380709/standard/S8-02.jpg"
                       }
+                      countryCode={book.address.countryCode}
+                      city={book.address.city}
+                      stateName={book.address.stateName}
                     />
                   </Link>
                 </Grid>
@@ -48,10 +48,9 @@ const Search = ({ authSearch, loading, authGet }) => {
             </div>
           )}
         </Grid>
-        <div className="go-back">
-          {/* <Link to={`/search/${word}`}> */}
+        <div className="go-back1">
           <Link to="/">
-            <Button variant="contained">Go Home</Button>
+            <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
           </Link>
         </div>
       </Container>
