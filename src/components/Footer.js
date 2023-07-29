@@ -6,12 +6,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { loadBook, moreBook } from "../actions/book";
+// import Spinner from "./Spinner";
 // import { useDispatch } from "react-redux";
 
-const Footer = ({ books, page, loadBook, moreBook }) => {
+const Footer = ({ books, page, loadBook, moreBook, loading }) => {
   useEffect(() => {
-    if (page === 0){
-      window.scrollTo(0,0);
+    if (page === 0) {
+      window.scrollTo(0, 0);
       loadBook();
     }
 
@@ -21,9 +22,8 @@ const Footer = ({ books, page, loadBook, moreBook }) => {
       if (div) {
         const rect = div.getBoundingClientRect();
         if (rect.top <= window.innerHeight && rect.bottom >= 400) {
+          console.log(page)
           moreBook(page);
-          setTimeout(() => {
-          }, 1000);
         }
       }
     }
@@ -39,21 +39,27 @@ const Footer = ({ books, page, loadBook, moreBook }) => {
     <div className="m-4">
       <Container>
         <Grid container spacing={6} className="cardPosition">
-          {books.map((book, index) => {
-            return (
-              <Grid item xs={3} key={index}>
-                <Link to={`/book/${book.lid}`}>
-                  <MediaCard
-                    title={book.artistName}
-                    imgURL={book.frontPage}
-                    countryCode={book.address.countryCode}
-                    city={book.address.city}
-                    stateName={book.address.stateName}
-                  />
-                </Link>
-              </Grid>
-            );
-          })}
+          {/* {loading ? (
+            <Spinner />
+          ) : (
+            <> */}
+              {books.map((book, index) => {
+                return (
+                  <Grid item xs={3} key={index}>
+                    <Link to={`/book/${book.lid}`}>
+                      <MediaCard
+                        title={book.artistName}
+                        imgURL={book.frontPage}
+                        countryCode={book.address.countryCode}
+                        city={book.address.city}
+                        stateName={book.address.stateName}
+                      />
+                    </Link>
+                  </Grid>
+                );
+              })}
+            {/* </>
+          )} */}
         </Grid>
       </Container>
     </div>
@@ -68,6 +74,7 @@ Footer.propTypes = {
 };
 const mapStateToProps = (state) => ({
   books: state.book.books,
+  loading: state.book.loading,
   page: state.book.page,
 });
 

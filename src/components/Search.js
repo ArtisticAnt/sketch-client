@@ -1,21 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 
-import { Grid, Container} from "@mui/material";
+import { Grid, Container } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import MediaCard from "./MediaCard";
 import NoSearch from "./NoSearch";
 import Spinner from "./Spinner";
-import { authGet } from "../actions/book";
+import { authGet, moreSearch } from "../actions/book";
 
-const Search = ({ authSearch, loading, authGet }) => {
+const Search = ({ authSearch, loading, authGet, searchPage, moreSearch }) => {
+  const [searchWord, setSearchWord] = useState('');
   const word = useParams().word;
   useEffect(() => {
-    authGet(word);
-  }, [authGet, word]);
+    if (word !== searchWord) {
+      // if (searchPage === 0){
+        authGet(word);
+        setSearchWord(word);
+      // }
+    }
+
+    const div = document.getElementById('more-search');
+
+    function handleScroll() {
+      if (div) {
+        const rect = div.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 400) {
+          moreSearch(searchPage, word);
+        }
+      }
+    }
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+
+  }, [authGet, moreSearch, searchPage, searchWord, word]);
   return (
     <div className="mt-4">
       <Container>
@@ -54,6 +74,7 @@ const Search = ({ authSearch, loading, authGet }) => {
           </Link>
         </div>
       </Container>
+      <div id="more-search"></div>
     </div>
   );
 };
@@ -63,12 +84,15 @@ Search.propTypes = {
   load: PropTypes.bool,
   word: PropTypes.string,
   authGet: PropTypes.func,
+  moreSearch: PropTypes.func,
+  searchPage: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   authSearch: state.book.authSearch,
   loading: state.book.loading,
   word: state.book.word,
+  searchPage: state.book.searchPage,
 });
 
-export default connect(mapStateToProps, { authGet })(Search);
+export default connect(mapStateToProps, { authGet, moreSearch })(Search);

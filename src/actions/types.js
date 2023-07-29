@@ -4,3 +4,4 @@ export const BOOK_ERROR = "BOOK_ERROR";
 export const BOOK_CONTENT = "BOOK_CONTENT";
 export const AUTH_SEARCH = "AUTH_SEARCH";
 export const BOOK_LOADING = "BOOK_LOADING";
+export const MORE_SEARCH = "MORE_SEARCH";

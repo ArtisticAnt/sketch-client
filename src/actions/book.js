@@ -6,6 +6,7 @@ import {
   BOOK_CONTENT,
   AUTH_SEARCH,
   BOOK_LOADING,
+  MORE_SEARCH,
 } from "./types";
 
 export const loadBook = () => async (dispatch) => {
@@ -21,6 +22,10 @@ export const loadBook = () => async (dispatch) => {
 };
 
 export const moreBook = (pageNumber) => async (dispatch) => {
+  dispatch({
+    type: BOOK_LOADING,
+    payload: [],
+  });
   try {
     const res = await api.get(`/submissions/more?page=${pageNumber}`);
     dispatch({
@@ -60,6 +65,23 @@ export const authGet = (word) => async (dispatch) => {
     console.log(res);
     dispatch({
       type: AUTH_SEARCH,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    dispatch({ type: BOOK_ERROR });
+  }
+};
+
+export const moreSearch = (pageNumber, word) => async (dispatch) => {
+  dispatch({
+    type: BOOK_LOADING,
+    payload: [],
+  });
+  try {
+    const res = await api.get(`/submissions/moreSearch?page=${pageNumber}&word=${word}`);
+    dispatch({
+      type: MORE_SEARCH,
       payload: res.data,
     });
   } catch (err) {

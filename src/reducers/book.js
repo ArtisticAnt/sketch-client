@@ -4,13 +4,16 @@ import {
   GET_BOOKS,
   MORE_LOADED,
   BOOK_LOADING,
+  MORE_SEARCH,
 } from "../actions/types";
 
 const initalState = {
   books: [],
+  searchBooks: [],
   bookContent: [],
   authSearch: [],
   page: 0,
+  searchPage: 0,
   loading: true,
   word: null,
   error: {},
@@ -33,6 +36,13 @@ const bookReducer = (state = initalState, action) => {
         books: [...state.books, ...payload],
         page: state.page + 1,
       };
+    case MORE_SEARCH:
+      return {
+        ...state,
+        loading: false,
+        authSearch: [...state.authSearch, ...payload],
+        searchPage: state.searchPage + 1,
+      };
     case BOOK_CONTENT:
       return {
         ...state,
@@ -44,6 +54,7 @@ const bookReducer = (state = initalState, action) => {
         ...state,
         loading: false,
         authSearch: payload,
+        searchPage: 1
       };
     case BOOK_LOADING:
       return {
