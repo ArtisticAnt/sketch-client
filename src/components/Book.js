@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getContent } from "../actions/book";
 import { Link, useParams } from "react-router-dom";
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
@@ -9,7 +10,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import MagicSliderDots from 'react-magic-slider-dots';
+// import MagicSliderDots from 'react-magic-slider-dots';
 import 'react-magic-slider-dots/dist/magic-dots.css';
 // import { Container } from "@mui/material";
 
@@ -17,36 +18,54 @@ import 'react-magic-slider-dots/dist/magic-dots.css';
 const Footer = ({ bookContent, getContent, loading }) => {
   const bookId = useParams().id;
   const search = useParams().search;
-  // const item = useParams().item;
   const linkTo = search ? `/search/${search}` : "/";
-  // console.log(linkTo);
+  const [nav1, setNav1] = useState(null);
+  const [nav2, setNav2] = useState(null);
+
   useEffect(() => {
     getContent(bookId);
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, [getContent, bookId]);
 
-  const settings = {
-    dots: true,
-    arrows: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 0,
-    asNavFor: true,
-    appendDots: dots => {
-      return <MagicSliderDots dots={dots} numDotsToShow={8} dotWidth={30} />;
-    }
-  };
+  // const settingsOne = {
+  //   dots: false,
+  //   arrows: true,
+  //   infinite: false,
+  //   speed: 500,
+  //   slidesToShow: 2,
+  //   slidesToScroll: 2,
+  //   // asNavFor: nav2,
+  //   appendDots: dots => {
+  //     return <MagicSliderDots dots={dots} numDotsToShow={8} dotWidth={30} />;
+  //   }
+  // };
+  // const settingsTwo = {
+  //   dots: true,
+  //   arrows: true,
+  //   infinite: false,
+  //   speed: 500,
+  //   slidesToShow: 2,
+  //   slidesToScroll: 2,
+  //   // asNavFor: nav1,
+  //   appendDots: dots => {
+  //     return <MagicSliderDots dots={dots} numDotsToShow={8} dotWidth={30} />;
+  //   }
+  // };
 
   return (
     // <Container >
-    <div>
+    <div style={{ overflow: "hidden" }}>
       {loading ? (
         <Spinner />
       ) : (
         <>
-          <Slider {...settings}>
-            {bookContent.map((content, index) => {
+          <Slider
+            asNavFor={nav2}
+            ref={(slider1) => setNav1(slider1)}
+            slidesToShow={4.2}
+            slidesToScroll={2}
+          >
+            {bookContent.map((content) => {
               return (
                 <div>
                   <img src={content} alt=""></img>
@@ -54,15 +73,21 @@ const Footer = ({ bookContent, getContent, loading }) => {
               );
             })}
           </Slider>
-          {/* <Slider {...settings}>
-            {bookContent.map((content, index) => {
+          <Slider
+            asNavFor={nav1}
+            ref={(slider2) => setNav2(slider2)}
+            slidesToShow={20}
+            swipeToSlide={true}
+            focusOnSelect={true}
+          >
+            {bookContent.map((content) => {
               return (
                 <div>
                   <img src={content} alt=""></img>
                 </div>
               );
             })}
-          </Slider> */}
+          </Slider>
         </>
       )}
       <div className="go-back">
@@ -70,8 +95,8 @@ const Footer = ({ bookContent, getContent, loading }) => {
           <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
         </Link>
       </div>
-    {/* </Container> */}
     </div>
+    // </Container>
   );
 };
 
