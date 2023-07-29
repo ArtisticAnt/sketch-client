@@ -6,60 +6,42 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { loadBook, moreBook } from "../actions/book";
+import { useBottomScrollListener } from "react-bottom-scroll-listener";
 // import Spinner from "./Spinner";
 // import { useDispatch } from "react-redux";
 
 const Footer = ({ books, page, loadBook, moreBook, loading }) => {
   useEffect(() => {
     if (page === 0) {
-      window.scrollTo(0, 0);
       loadBook();
     }
-
-    const div = document.getElementById('image-container');
-
-    function handleScroll() {
-      if (div) {
-        const rect = div.getBoundingClientRect();
-        if (rect.top <= window.innerHeight && rect.bottom >= 400) {
-          console.log(page)
-          moreBook(page);
-        }
-      }
-    }
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-
   }, [loadBook, moreBook, page]);
-  // const dispatch = useDispatch();
-  // function moreLoad() {
-  //   dispatch(moreBook(page));
-  // }
+
+  useBottomScrollListener(() => {
+    moreBook(page);
+  });
+
+  console.log(books);
+
   return (
     <div className="m-4">
       <Container>
-        <Grid container spacing={6} className="cardPosition">
-          {/* {loading ? (
-            <Spinner />
-          ) : (
-            <> */}
-              {books.map((book, index) => {
-                return (
-                  <Grid item xs={3} key={index}>
-                    <Link to={`/book/${book.lid}`}>
-                      <MediaCard
-                        title={book.artistName}
-                        imgURL={book.frontPage}
-                        countryCode={book.address.countryCode}
-                        city={book.address.city}
-                        stateName={book.address.stateName}
-                      />
-                    </Link>
-                  </Grid>
-                );
-              })}
-            {/* </>
-          )} */}
+        <Grid container spacing={6} className="cardPosition" >
+          {books.map((book, index) => {
+            return (
+              <Grid item xl={3} lg={4} md={6} xs={12} key={index}>
+                <Link to={`/book/${book.lid}`}>
+                  <MediaCard
+                    title={book.artistName}
+                    imgURL={book.frontPage}
+                    countryCode={book.address.countryCode}
+                    city={book.address.city}
+                    stateName={book.address.stateName}
+                  />
+                </Link>
+              </Grid>
+            );
+          })}
         </Grid>
       </Container>
     </div>

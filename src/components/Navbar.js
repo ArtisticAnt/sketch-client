@@ -1,7 +1,3 @@
-// import { TextField, Box } from "@mui/material";
-// import SearchIcon from "@mui/icons-material/Search";
-// import { Link } from "react-router-dom";
-// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,8 +9,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import { useState } from 'react';
-// import { useParams } from "react-router-dom";
-// import logo from "../assets/img/sketch_logo.png";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,7 +55,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  // const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchInputchange = (event) => {
     setSearchQuery(event.target.value);

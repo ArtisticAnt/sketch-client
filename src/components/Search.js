@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
-
+import { useBottomScrollListener } from "react-bottom-scroll-listener";
 import { Grid, Container } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 
 import MediaCard from "./MediaCard";
 import NoSearch from "./NoSearch";
-import Spinner from "./Spinner";
+// import Spinner from "./Spinner";
 import { authGet, moreSearch } from "../actions/book";
 
 const Search = ({ authSearch, loading, authGet, searchPage, moreSearch }) => {
@@ -16,36 +16,24 @@ const Search = ({ authSearch, loading, authGet, searchPage, moreSearch }) => {
   const word = useParams().word;
   useEffect(() => {
     if (word !== searchWord) {
-      // if (searchPage === 0){
-        authGet(word);
-        setSearchWord(word);
-      // }
+      authGet(word);
+      setSearchWord(word);
     }
 
-    const div = document.getElementById('more-search');
+  }, [authGet, searchWord, word]);
 
-    function handleScroll() {
-      if (div) {
-        const rect = div.getBoundingClientRect();
-        if (rect.top <= window.innerHeight && rect.bottom >= 400) {
-          moreSearch(searchPage, word);
-        }
-      }
-    }
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  useBottomScrollListener(() => {
+    moreSearch(searchPage, word);
+  });
 
-  }, [authGet, moreSearch, searchPage, searchWord, word]);
   return (
-    <div className="mt-4">
+    <div style={{ marginTop: "60px" }} className="mt-4">
       <Container>
         <Grid container spacing={6} className="cardPosition">
-          {loading ? (
-            <Spinner />
-          ) : authSearch.length ? (
+          {authSearch.length ? (
             authSearch.map((book, index) => {
               return (
-                <Grid item xs={3} key={index}>
+                <Grid item xl={3} lg={4} md={6} xs={12} key={index}>
                   <Link to={`/book/${book.lid}/${word}`}>
                     <MediaCard
                       title={book.artistName}
@@ -74,7 +62,6 @@ const Search = ({ authSearch, loading, authGet, searchPage, moreSearch }) => {
           </Link>
         </div>
       </Container>
-      <div id="more-search"></div>
     </div>
   );
 };
