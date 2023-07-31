@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { loadBook, moreBook } from "../actions/book";
-import { useBottomScrollListener } from "react-bottom-scroll-listener";
+// import { useBottomScrollListener } from "react-bottom-scroll-listener";
 // import Spinner from "./Spinner";
 // import { useDispatch } from "react-redux";
 
@@ -15,11 +15,26 @@ const Footer = ({ books, page, loadBook, moreBook, loading }) => {
     if (page === 0) {
       loadBook();
     }
+
+    const div = document.getElementById('image-container');
+
+    function handleScroll() {
+      if (div) {
+        const rect = div.getBoundingClientRect();
+        if (rect.top <= window.innerHeight && rect.bottom >= 400) {
+          console.log(page)
+          moreBook(page);
+        }
+      }
+    }
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+
   }, [loadBook, moreBook, page]);
 
-  useBottomScrollListener(() => {
-    moreBook(page);
-  });
+  // useBottomScrollListener(() => {
+  //   moreBook(page);
+  // });
 
   console.log(books);
 
@@ -44,6 +59,7 @@ const Footer = ({ books, page, loadBook, moreBook, loading }) => {
           })}
         </Grid>
       </Container>
+      <div id="image-container">&nbsp;&nbsp;&nbsp;&nbsp;</div>
     </div>
   );
 };

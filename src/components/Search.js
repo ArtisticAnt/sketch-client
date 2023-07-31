@@ -19,8 +19,7 @@ const Search = ({ authSearch, loading, authGet, searchPage, moreSearch }) => {
       authGet(word);
       setSearchWord(word);
     }
-
-  }, [authGet, searchWord, word]);
+  }, [authGet, moreSearch, searchPage, searchWord, word]);
 
   useBottomScrollListener(() => {
     moreSearch(searchPage, word);
