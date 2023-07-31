@@ -21,13 +21,14 @@ const Footer = ({ bookContent, getContent, loading }) => {
   const linkTo = search ? `/search/${search}` : "/";
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
+  // const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     getContent(bookId);
   }, [getContent, bookId]);
 
   return (
-    <div style={{ overflow: "hidden" }}>
+    <div style={{ overflowX: "hidden" }}>
       {loading ? (
         <Spinner />
       ) : (
@@ -35,13 +36,17 @@ const Footer = ({ bookContent, getContent, loading }) => {
           <Slider
             asNavFor={nav2}
             ref={(slider1) => setNav1(slider1)}
+            infinite={false}
             slidesToShow={5}
             slidesToScroll={2}
+          // afterChange={(currentSlide) => setCurrentPage(currentSlide + 1)}
           >
-            {bookContent.map((content) => {
+            {bookContent.map((content, index) => {
               return (
                 <div>
-                  <img src={content} alt=""></img>
+                  <img style={{ height: "64.7vh" }} src={content} alt=""></img>
+                  <div style={{ height: "5vh", backgroundColor: "#000000", position: "relative", textAlign: "center" }}><p style={{ fontSize: "15px", color: "#ffffff" }}>{index + 1}</p></div>
+                  <div style={{ height: ".3vh" }}></div>
                 </div>
               );
             })}
@@ -49,14 +54,16 @@ const Footer = ({ bookContent, getContent, loading }) => {
           <Slider
             asNavFor={nav1}
             ref={(slider2) => setNav2(slider2)}
+            infinite={false}
             slidesToShow={20}
             swipeToSlide={true}
             focusOnSelect={true}
           >
-            {bookContent.map((content) => {
+            {bookContent.map((content, index) => {
               return (
                 <div>
-                  <img src={content} alt=""></img>
+                  <img style={{ height: "16vh" }} src={content} alt=""></img>
+                  <div style={{ height: "4vh", backgroundColor: "#000000", position: "relative", textAlign: "center" }}><p style={{ fontSize: "10px", color: "#ffffff" }}>{index + 1}</p></div>
                 </div>
               );
             })}

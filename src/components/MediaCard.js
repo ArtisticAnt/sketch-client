@@ -12,8 +12,9 @@ export default function MediaCard({ title, imgURL, countryCode, city, stateName 
       <Grid item>
         {title}
       </Grid>
+      <br />
       <Grid item>
-        {countryCode}, {city}, {stateName}
+        {city}, {stateName}, {countryCode}
       </Grid>
     </Grid>
   );
