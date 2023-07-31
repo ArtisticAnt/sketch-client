@@ -35,7 +35,7 @@ const Footer = ({ bookContent, getContent, loading }) => {
         setSlidesToShow(4);
         setSlidesToShow2(15);
       } else if (window.innerWidth >= 500) {
-        setSlidesToShow(3);
+        setSlidesToShow(2);
         setSlidesToShow2(10);
       } else {
         setSlidesToShow(1);
@@ -57,7 +57,7 @@ const Footer = ({ bookContent, getContent, loading }) => {
     infinite: false,
     speed: 500,
     slidesToShow: slidesToShow,
-    slidesToScroll: 1,
+    slidesToScroll: slidesToShow,
   };
 
   const setting2 = {
