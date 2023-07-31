@@ -36,8 +36,7 @@ const Footer = ({ bookContent, getContent, loading }) => {
             asNavFor={nav2}
             ref={(slider1) => setNav1(slider1)}
             slidesToShow={5}
-            slidesToScroll={true}
-            focusOnSelect={true}
+            slidesToScroll={2}
           >
             {bookContent.map((content) => {
               return (
@@ -66,7 +65,7 @@ const Footer = ({ bookContent, getContent, loading }) => {
       )}
       <div className="go-back">
         <Link to={linkTo}>
-          <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
+          <ArrowBackIosRoundedIcon style={{ color: '#e6e6e6', fontSize: 45 }} />
         </Link>
       </div>
     </div>

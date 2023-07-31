@@ -395,7 +395,11 @@ img {
   width: 100%;
   top: 0;
   // border-bottom: solid 1px #cedce6;
-  opacity: 0.7;
+}
+
+header {
+  background-color: black !important;
+
 }
 
 .navbar ul {
@@ -404,14 +408,15 @@ img {
   display: flex;
 }
 
-.navbar a {
-  color: #48c454;
-  padding: 0.45rem;
-  margin: 0 0.25rem;
-}
 
 .navbar a:hover {
   color: #fff;
+}
+
+.navbar a {
+  position: absolute;
+  top: 0;
+  left: 10px;
 }
 
 .landing {
@@ -706,18 +711,16 @@ img {
   position: fixed;
   z-index: 10;
   top: 0;
-  margin-top: 4.5rem;
+  margin-top: 6rem;
   margin-left: 3rem;
-  opacity: 0.4;
 }
 
 .go-back1 {
   position: fixed;
   z-index: 10;
   top: 0;
-  margin-top: 4.5rem;
+  margin-top: 6rem;
   margin-left: -4rem;
-  opacity: 0.4;
 }
 
 .no-search {
@@ -855,4 +858,9 @@ img {
 
 .bookView {
   display: flex;
+}
+
+.nav-item {
+  display: flex;
+  justify-content: flex-end;
 }

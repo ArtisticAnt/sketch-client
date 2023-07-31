@@ -58,7 +58,7 @@ const Search = ({ authSearch, loading, authGet, searchPage, moreSearch }) => {
         </Grid>
         <div className="go-back1">
           <Link to="/">
-            <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
+            <ArrowBackIosRoundedIcon style={{ color: '#000000', fontSize: 45 }} />
           </Link>
         </div>
       </Container>

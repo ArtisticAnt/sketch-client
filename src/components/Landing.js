@@ -8,7 +8,7 @@ const Landing = () => {
       <section className="landing">
         <div className="dark-overlay">
           <div className="landing-inner">
-            <h1 className="x-large">SketchBook Library</h1>
+            {/* <h1 className="x-large">SketchBook Library</h1> */}
 
             <p className="lead">
 
