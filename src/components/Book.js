@@ -21,11 +21,56 @@ const Footer = ({ bookContent, getContent, loading }) => {
   const linkTo = search ? `/search/${search}` : "/";
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
-  // const [currentPage, setCurrentPage] = useState(0);
+  const [slidesToShow, setSlidesToShow] = useState(5);
+  const [slidesToShow2, setSlidesToShow2] = useState(5);
 
   useEffect(() => {
     getContent(bookId);
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1200) {
+        setSlidesToShow(5);
+        setSlidesToShow2(20);
+      } else if (window.innerWidth >= 700) {
+        setSlidesToShow(4);
+        setSlidesToShow2(15);
+      } else if (window.innerWidth >= 500) {
+        setSlidesToShow(3);
+        setSlidesToShow2(10);
+      } else {
+        setSlidesToShow(1);
+        setSlidesToShow2(5);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+
   }, [getContent, bookId]);
+
+  const setting1 = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: 1,
+  };
+
+  const setting2 = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: slidesToShow2,
+    swipeToSlide: true,
+    focusOnSelect: true,
+  };
+
+
+
+
 
   return (
     <div style={{ overflowX: "hidden" }}>
@@ -34,12 +79,9 @@ const Footer = ({ bookContent, getContent, loading }) => {
       ) : (
         <>
           <Slider
+            {...setting1}
             asNavFor={nav2}
             ref={(slider1) => setNav1(slider1)}
-            infinite={false}
-            slidesToShow={5}
-            slidesToScroll={2}
-          // afterChange={(currentSlide) => setCurrentPage(currentSlide + 1)}
           >
             {bookContent.map((content, index) => {
               return (
@@ -52,12 +94,9 @@ const Footer = ({ bookContent, getContent, loading }) => {
             })}
           </Slider>
           <Slider
+            {...setting2}
             asNavFor={nav1}
             ref={(slider2) => setNav2(slider2)}
-            infinite={false}
-            slidesToShow={20}
-            swipeToSlide={true}
-            focusOnSelect={true}
           >
             {bookContent.map((content, index) => {
               return (

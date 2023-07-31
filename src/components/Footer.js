@@ -22,7 +22,6 @@ const Footer = ({ books, page, loadBook, moreBook, loading }) => {
       if (div) {
         const rect = div.getBoundingClientRect();
         if (rect.top <= window.innerHeight && rect.bottom >= 400) {
-          console.log(page)
           moreBook(page);
         }
       }

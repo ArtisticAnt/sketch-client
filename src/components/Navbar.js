@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled, alpha } from "@mui/material/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LogoImg from "../assets/img/sketch_logo.png";
 
 const Search = styled("div")(({ theme }) => ({
@@ -64,6 +64,29 @@ const Navbar = () => {
     }
   };
 
+  // const [navbarImg, setNavbarImg] = useState(1);
+
+  useEffect(() => {
+    const img = document.getElementById("logo");
+
+
+    const handleNavbar = () => {
+      if (window.innerWidth >= 600) {
+        img.hidden = false;
+      } else {
+        img.hidden = true;
+      }
+    };
+
+    window.addEventListener('resize', handleNavbar);
+
+    handleNavbar();
+
+    return () => {
+      window.removeEventListener('resize', handleNavbar);
+    };
+  }, []);
+
   return (
     <div className="navbar">
       <Box sx={{ flexGrow: 1 }}>
@@ -73,7 +96,7 @@ const Navbar = () => {
         >
           <Toolbar className="nav-item">
             <NavLink to="/">
-              <img src={LogoImg} width="100px" height="90px" alt="Logo"></img>
+              <img src={LogoImg} width="100px" height="90px" alt="Logo" id="logo"></img>
             </NavLink>
             <Search>
               <SearchIconWrapper>
