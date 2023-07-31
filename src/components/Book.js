@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+// import CssBaseline from '@mui/material/CssBaseline';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-magic-slider-dots/dist/magic-dots.css';
-import { Container } from "@mui/material";
+// import { Container } from "@mui/material";
 
 
 const Footer = ({ bookContent, getContent, loading }) => {
@@ -24,56 +24,52 @@ const Footer = ({ bookContent, getContent, loading }) => {
 
   useEffect(() => {
     getContent(bookId);
-    // window.scrollTo(0, 0);
   }, [getContent, bookId]);
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <Container fixed >
-        {/* <div style={{ overflow: "hidden" }}> */}
-        {loading ? (
-          <Spinner />
-        ) : (
-          <>
-            <Slider
-              asNavFor={nav2}
-              ref={(slider1) => setNav1(slider1)}
-              slidesToShow={2}
-              slidesToScroll={2}
-            >
-              {bookContent.map((content) => {
-                return (
-                  <div>
-                    <img src={content} alt=""></img>
-                  </div>
-                );
-              })}
-            </Slider>
-            <Slider
-              asNavFor={nav1}
-              ref={(slider2) => setNav2(slider2)}
-              slidesToShow={20}
-              swipeToSlide={true}
-              focusOnSelect={true}
-            >
-              {bookContent.map((content) => {
-                return (
-                  <div>
-                    <img src={content} alt=""></img>
-                  </div>
-                );
-              })}
-            </Slider>
-          </>
-        )}
-        <div className="go-back">
-          <Link to={linkTo}>
-            <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
-          </Link>
-        </div>
-      </Container>
-    </React.Fragment>
+    <div style={{ overflow: "hidden" }}>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <Slider
+            asNavFor={nav2}
+            ref={(slider1) => setNav1(slider1)}
+            slidesToShow={5}
+            slidesToScroll={true}
+            focusOnSelect={true}
+          >
+            {bookContent.map((content) => {
+              return (
+                <div>
+                  <img src={content} alt=""></img>
+                </div>
+              );
+            })}
+          </Slider>
+          <Slider
+            asNavFor={nav1}
+            ref={(slider2) => setNav2(slider2)}
+            slidesToShow={20}
+            swipeToSlide={true}
+            focusOnSelect={true}
+          >
+            {bookContent.map((content) => {
+              return (
+                <div>
+                  <img src={content} alt=""></img>
+                </div>
+              );
+            })}
+          </Slider>
+        </>
+      )}
+      <div className="go-back">
+        <Link to={linkTo}>
+          <ArrowBackIosRoundedIcon style={{ color: 'blue', fontSize: 45 }} />
+        </Link>
+      </div>
+    </div>
   );
 };
 
